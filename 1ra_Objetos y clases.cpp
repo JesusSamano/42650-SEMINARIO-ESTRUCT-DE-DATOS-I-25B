@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
-#include <iomanip> // Para formato de salida
-#include <vector>  // Para manejar la lista de empleados
+#include <iomanip> 
+#include <vector> 
 
 class Empleado {
 private:
@@ -16,7 +16,7 @@ public:
     Empleado(int clave, std::string nombre, std::string domicilio, float sueldo, std::string reportaA)
         : Clave(clave), Nombre(nombre), Domicilio(domicilio), Sueldo(sueldo), ReportaA(reportaA) {}
 
-    // Métodos
+    // MÃ©todos
     void Imprime() {
         std::cout << "\nDatos del empleado:" << std::endl;
         std::cout << "Clave: " << Clave << std::endl;
@@ -42,12 +42,12 @@ public:
                   << std::fixed << std::setprecision(2) << Sueldo << std::endl;
     }
 
-    // Métodos para acceder a atributos privados
+    // MÃ©todos para acceder a atributos privados
     int getClave() const { return Clave; }
     std::string getNombre() const { return Nombre; }
 };
 
-// Función para mostrar el menú
+//Menu
 void mostrarMenu() {
     std::cout << "\nMENU DE OPCIONES" << std::endl;
     std::cout << "1. Cambiar domicilio de un empleado" << std::endl;
