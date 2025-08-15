@@ -15,7 +15,7 @@ public:
     Materia(int clave, std::string nombre, std::string profesor, std::string libro)
         : Clave(clave), Nombre(nombre), ProfesorTit(profesor), LibroTexto(libro) {}
 
-    // Métodos
+    // MÃ©todos
     void Imprime() {
 
         std::cout << "\nClave: " << Clave << std::endl;
@@ -35,7 +35,7 @@ public:
     }
 };
 
-// Función para mostrar el menú
+// MENU
 void mostrarMenu() {
     std::cout << "\nMENU DE OPCIONES" << std::endl;
     std::cout << "1. Cambiar clave de Programacion" << std::endl;
@@ -46,7 +46,7 @@ void mostrarMenu() {
 }
 
 int main() {
-    // Crear las materias específicas
+    
     Materia Programacion(567, "Programacion", "Alexandra Garcia", "Introduccion a C++");
     Materia BasesDatos(789, "Bases de Datos", "Aalejandra Martinez", "Fundamentos de SQL");
 
@@ -59,19 +59,19 @@ int main() {
         std::cin.ignore(); // Limpiar buffer
 
         switch(opcion) {
-            case 1: // Cambiar clave de Programacion
+            case 1: 
                 std::cout << "\nIngrese la nueva clave para Programacion: ";
                 std::cin >> nuevaClave;
                 Programacion.CambiaClave(nuevaClave);
                 break;
 
-            case 2: // Cambiar profesor de BasesDatos
+            case 2: 
                 std::cout << "\nIngrese el nuevo profesor para BasesDatos: ";
                 std::getline(std::cin, nuevoProfesor);
                 BasesDatos.CambiaProfe(nuevoProfesor);
                 break;
 
-            case 3: // Imprimir datos de BasesDatos
+            case 3: 
                 std::cout << "\nDatos de la materia BasesDatos:";
                 BasesDatos.Imprime();
                 break;
