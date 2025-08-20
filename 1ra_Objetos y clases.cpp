@@ -1,176 +1,115 @@
 #include <iostream>
 #include <string>
-#include <iomanip> 
-#include <vector> 
+using namespace std;
 
 class Empleado {
 private:
-    int Clave;
-    std::string Nombre;
-    std::string Domicilio;
-    float Sueldo;
-    std::string ReportaA;
+    int claveEmpleado;
+    string nombre;
+    string domicilio;
+    float sueldo;
+    string reportaA;
 
-public:
-    // Constructor
-    Empleado(int clave, std::string nombre, std::string domicilio, float sueldo, std::string reportaA)
-        : Clave(clave), Nombre(nombre), Domicilio(domicilio), Sueldo(sueldo), ReportaA(reportaA) {}
+public: // Constructor
+    Empleado(int clave, string nom, string dom, float sue, string jefe)
+        : claveEmpleado(clave), nombre(nom), domicilio(dom), sueldo(sue), reportaA(jefe) {}
 
-    // Métodos
-    void Imprime() {
-        std::cout << "\nDatos del empleado:" << std::endl;
-        std::cout << "Clave: " << Clave << std::endl;
-        std::cout << "Nombre: " << Nombre << std::endl;
-        std::cout << "Domicilio: " << Domicilio << std::endl;
-        std::cout << "Sueldo: $" << std::fixed << std::setprecision(2) << Sueldo << std::endl;
-        std::cout << "Reporta a: " << ReportaA << std::endl;
+    int getClave() const { return claveEmpleado; }
+
+     // Métodos
+    void cambiarDomicilio(string nuevoDom) {
+        domicilio = nuevoDom;
     }
 
-    void CambiaDomic(std::string nuevoDomicilio) {
-        Domicilio = nuevoDomicilio;
-        std::cout << "Domicilio actualizado correctamente." << std::endl;
+    void actualizarSueldo(float porcentaje) {
+        sueldo += sueldo * (porcentaje / 100.0);
     }
 
-    void CambiaReportaA(std::string nuevoJefe) {
-        ReportaA = nuevoJefe;
-        std::cout << "Persona a reportar actualizada correctamente." << std::endl;
+    void cambiarReportaA(string nuevoJefe) {
+        reportaA = nuevoJefe;
     }
 
-    void ActualSueldo(float porcentaje) {
-        Sueldo *= (1 + porcentaje / 100);
-        std::cout << "Sueldo actualizado correctamente. Nuevo sueldo: $"
-                  << std::fixed << std::setprecision(2) << Sueldo << std::endl;
+    void imprimirDatos() const {
+        cout << "Clave: " << claveEmpleado << endl;
+        cout << "Nombre: " << nombre << endl;
+        cout << "Domicilio: " << domicilio << endl;
+        cout << "Sueldo: $" << sueldo << endl;
+        cout << "Reporta a: " << reportaA << endl;
     }
-
-    // Métodos para acceder a atributos privados
-    int getClave() const { return Clave; }
-    std::string getNombre() const { return Nombre; }
 };
 
-//Menu
-void mostrarMenu() {
-    std::cout << "\nMENU DE OPCIONES" << std::endl;
-    std::cout << "1. Cambiar domicilio de un empleado" << std::endl;
-    std::cout << "2. Actualizar sueldo de un empleado" << std::endl;
-    std::cout << "3. Imprimir datos de un empleado" << std::endl;
-    std::cout << "4. Cambiar persona a reportar" << std::endl;
-    std::cout << "5. Mostrar todos los empleados" << std::endl;
-    std::cout << "6. Salir" << std::endl;
-    std::cout << "Seleccione una opcion: ";
-}
-
 int main() {
-    // EMPLEADOS
-    Empleado JefePlanta(123, "Juan Perez", "Av. Industrial 123", 35000.0f, "Gerente General");
-    Empleado JefePersonal(456, "Maria Lopez", "Calle Primavera 45", 32000.0f, "Gerente General");
+    //USUARIOS
+    Empleado JefePlanta(1, "Carlos Pérez", "Av. Siempre Viva 123", 25000, "Director General");
+    Empleado JefePersonal(2, "Ana López", "Calle Reforma 45", 22000, "Director General");
 
-    // Vector para manejar todos los empleados
-    std::vector<Empleado*> empleados;
-    empleados.push_back(&JefePlanta);
-    empleados.push_back(&JefePersonal);
-
-    int opcion, clave;
-    bool encontrado;
-
+    int opcion;
     do {
-        mostrarMenu();
-        std::cin >> opcion;
+        cout << "\n--- MENU EMPLEADOS ---\n";
+        cout << "1. Cambiar domicilio\n";
+        cout << "2. Actualizar sueldo\n";
+        cout << "3. Imprimir datos\n";
+        cout << "4. Cambiar jefe\n";
+        cout << "0. Salir\n";
+        cout << "Opcion: ";
+        cin >> opcion;
 
-        switch(opcion) {
-            case 1: { // Cambiar domicilio
-                std::cout << "\nIngrese la clave del empleado (123-JefePlanta, 456-JefePersonal): ";
-                std::cin >> clave;
-                std::cin.ignore(); // Limpiar buffer
+        //MENU
+        int clave;
+        switch (opcion) {
+        case 1: {
+            cout << "Clave del empleado: ";
+            cin >> clave;
+            cin.ignore();
+            cout << "Nuevo domicilio: ";
+            string dom;
+            getline(cin, dom);
 
-                encontrado = false;
-                for (auto emp : empleados) {
-                    if (emp->getClave() == clave) {
-                        std::string nuevoDomicilio;
-                        std::cout << "Ingrese el nuevo domicilio: ";
-                        std::getline(std::cin, nuevoDomicilio);
-                        emp->CambiaDomic(nuevoDomicilio);
-                        encontrado = true;
-                        break;
-                    }
-                }
-                if (!encontrado) {
-                    std::cout << "Empleado no encontrado." << std::endl;
-                }
-                break;
-            }
-            case 2: { // Actualizar sueldo
-                std::cout << "\nIngrese la clave del empleado (123-JefePlanta, 456-JefePersonal): ";
-                std::cin >> clave;
-
-                encontrado = false;
-                for (auto emp : empleados) {
-                    if (emp->getClave() == clave) {
-                        float porcentaje;
-                        std::cout << "Ingrese el porcentaje de incremento: ";
-                        std::cin >> porcentaje;
-                        emp->ActualSueldo(porcentaje);
-                        encontrado = true;
-                        break;
-                    }
-                }
-                if (!encontrado) {
-                    std::cout << "Empleado no encontrado." << std::endl;
-                }
-                break;
-            }
-            case 3: { // Imprimir datos
-                std::cout << "\nIngrese la clave del empleado (123-JefePlanta, 456-JefePersonal): ";
-                std::cin >> clave;
-
-                encontrado = false;
-                for (auto emp : empleados) {
-                    if (emp->getClave() == clave) {
-                        emp->Imprime();
-                        encontrado = true;
-                        break;
-                    }
-                }
-                if (!encontrado) {
-                    std::cout << "Empleado no encontrado." << std::endl;
-                }
-                break;
-            }
-            case 4: { // Cambiar persona a reportar
-                std::cout << "\nIngrese la clave del empleado (123-JefePlanta, 456-JefePersonal): ";
-                std::cin >> clave;
-                std::cin.ignore(); // Limpiar buffer
-
-                encontrado = false;
-                for (auto emp : empleados) {
-                    if (emp->getClave() == clave) {
-                        std::string nuevoJefe;
-                        std::cout << "Ingrese el nuevo nombre de la persona a reportar: ";
-                        std::getline(std::cin, nuevoJefe);
-                        emp->CambiaReportaA(nuevoJefe);
-                        encontrado = true;
-                        break;
-                    }
-                }
-                if (!encontrado) {
-                    std::cout << "Empleado no encontrado." << std::endl;
-                }
-                break;
-            }
-            case 5: { // Mostrar todos los empleados
-                std::cout << "\nLISTA DE TODOS LOS EMPLEADOS:\n";
-                std::cout << "=== JEFE PLANTA (Clave: 123) ===" << std::endl;
-                JefePlanta.Imprime();
-                std::cout << "\n=== JEFE PERSONAL (Clave: 456) ===" << std::endl;
-                JefePersonal.Imprime();
-                break;
-            }
-            case 6:
-                std::cout << "Saliendo del programa..." << std::endl;
-                break;
-            default:
-                std::cout << "Opcion no valida. Intente de nuevo." << std::endl;
+            if (clave == JefePlanta.getClave())
+                JefePlanta.cambiarDomicilio(dom);
+            else if (clave == JefePersonal.getClave())
+                JefePersonal.cambiarDomicilio(dom);
+            break;
         }
-    } while (opcion != 6);
+        case 2: {
+            cout << "Clave del empleado: ";
+            cin >> clave;
+            cout << "Porcentaje de aumento: ";
+            float porc;
+            cin >> porc;
+
+            if (clave == JefePlanta.getClave())
+                JefePlanta.actualizarSueldo(porc);
+            else if (clave == JefePersonal.getClave())
+                JefePersonal.actualizarSueldo(porc);
+            break;
+        }
+        case 3: {
+            cout << "Clave del empleado: ";
+            cin >> clave;
+
+            if (clave == JefePlanta.getClave())
+                JefePlanta.imprimirDatos();
+            else if (clave == JefePersonal.getClave())
+                JefePersonal.imprimirDatos();
+            break;
+        }
+        case 4: {
+            cout << "Clave del empleado: ";
+            cin >> clave;
+            cin.ignore();
+            cout << "Nuevo jefe: ";
+            string jefe;
+            getline(cin, jefe);
+
+            if (clave == JefePlanta.getClave())
+                JefePlanta.cambiarReportaA(jefe);
+            else if (clave == JefePersonal.getClave())
+                JefePersonal.cambiarReportaA(jefe);
+            break;
+        }
+        }
+    } while (opcion != 0);
 
     return 0;
 }
