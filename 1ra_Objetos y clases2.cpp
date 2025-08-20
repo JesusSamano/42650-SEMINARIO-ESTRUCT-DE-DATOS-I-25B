@@ -1,89 +1,77 @@
 #include <iostream>
-#include <string>
-#include <iomanip>
+using namespace std;
 
 class Materia {
 private:
-
+    int clave;
+    string nombre;
+    string maestro;
+    int creditos;
 
 public:
-    int Clave;
-    std::string Nombre;
-    std::string ProfesorTit;
-    std::string LibroTexto;
     // Constructor
-    Materia(int clave, std::string nombre, std::string profesor, std::string libro)
-        : Clave(clave), Nombre(nombre), ProfesorTit(profesor), LibroTexto(libro) {}
+    Materia(int c, string n, string m, int cr) {
+        clave = c;
+        nombre = n;
+        maestro = m;
+        creditos = cr;
+    }
 
     // Métodos
-    void Imprime() {
+    void setClave(int c) { clave = c; }
+    void setMaestro(string m) { maestro = m; }
 
-        std::cout << "\nClave: " << Clave << std::endl;
-        std::cout << "Nombre: " << Nombre << std::endl;
-        std::cout << "Profesor: " << ProfesorTit << std::endl;
-        std::cout << "Libro de texto: " << LibroTexto << std::endl;
-    }
-
-    void CambiaClave(int nuevaClave) {
-        Clave = nuevaClave;
-        std::cout << "Clave actualizada correctamente." << std::endl;
-    }
-
-    void CambiaProfe(std::string nuevoProfesor) {
-        ProfesorTit = nuevoProfesor;
-        std::cout << "Profesor actualizado correctamente." << std::endl;
+    void imprimirDatos() {
+        cout << "\nMateria: " << nombre << endl;
+        cout << "Clave: " << clave << endl;
+        cout << "Maestro: " << maestro << endl;
+        cout << "Creditos: " << creditos << endl;
     }
 };
 
-// MENU
-void mostrarMenu() {
-    std::cout << "\nMENU DE OPCIONES" << std::endl;
-    std::cout << "1. Cambiar clave de Programacion" << std::endl;
-    std::cout << "2. Cambiar profesor de BasesDatos" << std::endl;
-    std::cout << "3. Imprimir datos de BasesDatos" << std::endl;
-    std::cout << "4. Salir" << std::endl;
-    std::cout << "Seleccione una opcion: ";
-}
-
 int main() {
-    
-    Materia Programacion(567, "Programacion", "Alexandra Garcia", "Introduccion a C++");
-    Materia BasesDatos(789, "Bases de Datos", "Aalejandra Martinez", "Fundamentos de SQL");
+    Materia Programacion(101, "Programacion", "Luis Torres", 8);
+    Materia BasesDatos(202, "Bases de Datos", "Maria Gomez", 10);
 
-    int opcion, nuevaClave;
-    std::string nuevoProfesor;
-
+    int opcion;
     do {
-        mostrarMenu();
-        std::cin >> opcion;
-        std::cin.ignore(); // Limpiar buffer
+        cout << "\n--- MENU MATERIAS ---\n";
+        cout << "1. Cambiar clave de Programacion\n";
+        cout << "2. Cambiar maestro de Bases de Datos\n";
+        cout << "3. Imprimir datos de Bases de Datos\n";
+        cout << "0. Salir\n";
+        cout << "Opcion: ";
+        cin >> opcion;
 
-        switch(opcion) {
-            case 1: 
-                std::cout << "\nIngrese la nueva clave para Programacion: ";
-                std::cin >> nuevaClave;
-                Programacion.CambiaClave(nuevaClave);
-                break;
-
-            case 2: 
-                std::cout << "\nIngrese el nuevo profesor para BasesDatos: ";
-                std::getline(std::cin, nuevoProfesor);
-                BasesDatos.CambiaProfe(nuevoProfesor);
-                break;
-
-            case 3: 
-                std::cout << "\nDatos de la materia BasesDatos:";
-                BasesDatos.Imprime();
-                break;
-
-            case 4:
-                std::cout << "Saliendo del programa..." << std::endl;
-                break;
-
-            default:
-                std::cout << "Opcion no valida. Intente de nuevo." << std::endl;
+        switch (opcion) {
+        case 1: {
+            int nuevaClave;
+            cout << "Nueva clave para Programacion: ";
+            cin >> nuevaClave;
+            Programacion.setClave(nuevaClave);
+            cout << "Clave actualizada correctamente.\n";
+            break;
         }
-    } while (opcion != 4);
+        case 2: {
+            string nuevoMaestro;
+            cout << "Nuevo maestro para Bases de Datos: ";
+            cin.ignore(); // limpiar buffer
+            getline(cin, nuevoMaestro);
+            BasesDatos.setMaestro(nuevoMaestro);
+            cout << "Maestro actualizado correctamente.\n";
+            break;
+        }
+        case 3:
+            BasesDatos.imprimirDatos();
+            Programacion.imprimirDatos();
+            break;
+        case 0:
+            cout << "Saliendo...\n";
+            break;
+        default:
+            cout << "Opcion invalida.\n";
+        }
+    } while (opcion != 0);
 
     return 0;
 }
