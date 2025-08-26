@@ -19,7 +19,7 @@ public:
     string getNombre() const { return nombre; }
     float getSueldo() const { return sueldo; }
 
-    // Métodos
+    // MÃ©todos
     void cambiarDomicilio(string nuevoDom) { domicilio = nuevoDom; }
     void actualizarSueldo(float porcentaje) { sueldo += sueldo * (porcentaje / 100.0); }
     void cambiarReportaA(string nuevoJefe) { reportaA = nuevoJefe; }
@@ -94,7 +94,7 @@ int main() {
         cout << "5. Comparar empleados (==, !=, <, >)\n";
         cout << "6. Unir empleados (+)\n";
         cout << "7. Ingresar nuevo empleado (>>)\n";
-        cout << "8. Mostrar empleados\n";
+        cout << "8. Mostrar empleado << \n";
         cout << "0. Salir\n";
         cout << "Opcion: ";
         cin >> opcion;
