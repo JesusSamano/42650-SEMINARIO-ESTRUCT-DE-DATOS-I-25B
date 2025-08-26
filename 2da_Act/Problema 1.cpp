@@ -11,7 +11,7 @@ private:
     string reportaA;
 
 public:
-    // Constructor
+    // Constructor  Por def (sin parametros) copia
     Empleado(int clave = 0, string nom = "", string dom = "", float sue = 0.0, string jefe = "")
         : claveEmpleado(clave), nombre(nom), domicilio(dom), sueldo(sue), reportaA(jefe) {}
 
@@ -194,3 +194,4 @@ int main() {
 
     return 0;
 }
+
