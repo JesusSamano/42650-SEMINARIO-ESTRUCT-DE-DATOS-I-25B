@@ -11,7 +11,8 @@ private:
     string reportaA;
 
 public:
-    // Constructor  Por def (sin parametros) copia
+    // Constructor  
+    //Por def (sin parametros) copia pode agregar mas metodos. cambiar menu
     Empleado(int clave = 0, string nom = "", string dom = "", float sue = 0.0, string jefe = "")
         : claveEmpleado(clave), nombre(nom), domicilio(dom), sueldo(sue), reportaA(jefe) {}
 
@@ -194,4 +195,5 @@ int main() {
 
     return 0;
 }
+
 
