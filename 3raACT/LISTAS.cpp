@@ -1,8 +1,10 @@
+//Crear lifo, transformar de listas a pilas
+
 #include <iostream>
 #include <string>
 using namespace std;
 
-const int MAX = 100; // capacidad m·xima de la lista
+const int MAX = 100; // capacidad m√°xima de la lista
 
 class Empleado {
 private:
@@ -46,17 +48,17 @@ public:
         return o;
     }
 
-    // Sobrecarga de comparaciÛn (para b˙squeda)
+    // Sobrecarga de comparaci√≥n (para b√∫squeda)
     bool operator==(const Empleado& e) const {
         return claveEmpleado == e.claveEmpleado; // lo consideramos igual si tienen misma clave
     }
 };
 
-// --------------------- LISTA EST¡TICA ---------------------
+// --------------------- LISTA EST√ÅTICA ---------------------
 class ListaEstatica {
 private:
     Empleado datos[MAX];
-    int tam; // ˙ltimo Ìndice ocupado
+    int tam; // √∫ltimo √≠ndice ocupado
 
 public:
     ListaEstatica() { tam = -1; }
@@ -71,7 +73,7 @@ public:
         return 1;
     }
 
-    // Inserta en posiciÛn especÌfica
+    // Inserta en posici√≥n espec√≠fica
     int Inserta(Empleado e, int pos) {
         if (Llena()) return 0;
         if (pos < 0 || pos > tam + 1) return -1;
@@ -91,7 +93,7 @@ public:
         return -1; // no encontrado
     }
 
-    // Elimina por posiciÛn
+    // Elimina por posici√≥n
     int Elimina(int pos) {
         if (Vacia()) return -2;
         if (pos < 0 || pos > tam) return -1;
@@ -133,7 +135,7 @@ int main() {
         switch (opcion) {
         case 1: {
             if (lista.Llena()) {
-                cout << "No se puede agregar, la lista est· llena.\n";
+                cout << "No se puede agregar, la lista est√° llena.\n";
             } else {
                 Empleado e;
                 cin.ignore();
@@ -151,7 +153,7 @@ int main() {
                 cin.ignore();
                 cin >> e;
                 int pos = lista.Busca(e);
-                if (pos == -1) cout << "No se encontrÛ al empleado.\n";
+                if (pos == -1) cout << "No se encontr√≥ al empleado.\n";
                 else cout << "Empleado encontrado en posicion " << pos << ".\n";
             }
             break;
@@ -165,13 +167,13 @@ int main() {
                 cin >> pos;
                 int res = lista.Elimina(pos);
                 if (res == 1) cout << "Empleado eliminado.\n";
-                else cout << "No se pudo eliminar, posiciÛn invalida.\n";
+                else cout << "No se pudo eliminar, posici√≥n invalida.\n";
             }
             break;
         }
         case 4: {
     if (lista.Llena()) {
-        cout << "La lista est· llena, no se puede insertar.\n";
+        cout << "La lista est√° llena, no se puede insertar.\n";
     } else {
         cout << "Dame el Empleado a insertar:\n";
         Empleado e;
@@ -183,9 +185,9 @@ int main() {
 
         int res = lista.Inserta(e, pos);
         if (res == 1)
-            cout << "Empleado insertado correctamente en la posiciÛn " << pos << ".\n";
+            cout << "Empleado insertado correctamente en la posici√≥n " << pos << ".\n";
         else if (res == -1)
-            cout << "No se puede insertar en la posiciÛn " << pos << ", es invalida.\n";
+            cout << "No se puede insertar en la posici√≥n " << pos << ", es invalida.\n";
         else
             cout << "No se pudo insertar, error inesperado.\n";
     }
@@ -199,9 +201,10 @@ int main() {
             cout << "Saliendo...\n";
             break;
         default:
-            cout << "OpciÛn inv·lida.\n";
+            cout << "Opci√≥n inv√°lida.\n";
         }
     } while (opcion != 6);
 
     return 0;
 }
+
