@@ -1,4 +1,6 @@
 //Crear lifo, transformar de listas a pilas
+//PUSH POP TOPE
+
 
 #include <iostream>
 #include <string>
@@ -207,4 +209,5 @@ int main() {
 
     return 0;
 }
+
 
