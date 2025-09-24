@@ -2,8 +2,9 @@
 #include <string>
 using namespace std;
 
-const int MAX = 100; // capacidad máxima de la pila
+#define TAM 50
 
+// --------------------- CLASE EMPLEADO ---------------------
 class Empleado {
 private:
     int claveEmpleado;
@@ -17,10 +18,7 @@ public:
     Empleado(int clave = 0, string nom = "", string dom = "", float sue = 0.0, string jefe = "")
         : claveEmpleado(clave), nombre(nom), domicilio(dom), sueldo(sue), reportaA(jefe) {}
 
-    int getClave() const { return claveEmpleado; }
-    string getNombre() const { return nombre; }
-
-    // Sobrecarga de entrada y salida
+    // Sobrecarga de entrada
     friend istream& operator>>(istream& i, Empleado& e) {
         cout << "Clave: ";
         i >> e.claveEmpleado;
@@ -37,6 +35,7 @@ public:
         return i;
     }
 
+    // Sobrecarga de salida
     friend ostream& operator<<(ostream& o, const Empleado& e) {
         o << "Clave: " << e.claveEmpleado << "\n";
         o << "Nombre: " << e.nombre << "\n";
@@ -47,52 +46,58 @@ public:
     }
 };
 
-// --------------------- CLASE PILA ---------------------
+// CLASE PILA
+template <class T>
 class Pila {
 private:
-    Empleado datos[MAX];
-    int tope; // índice del último elemento
+    T datos[TAM]; // arreglo fijo
+    int tope; // Ã­ndice del Ãºltimo elemento
 
 public:
     Pila() : tope(-1) {}
 
     bool vacia() const { return tope == -1; }
-    bool llena() const { return tope == MAX - 1; }
+    bool llena() const { return tope == TAM - 1; }
 
-    // Push: apilar
-    bool push(const Empleado& e) {
-        if (llena()) return false;
-        datos[++tope] = e;
+    bool push(const T& elem) {
+        if (llena()) {
+            cout << "La pila esta llena.\n";
+            return false;
+        }
+        datos[++tope] = elem;
         return true;
     }
 
-    // Pop: desapilar
+
+
     bool pop() {
-        if (vacia()) return false;
+        if (vacia()) {
+            cout << "La pila esta vacia.\n";
+            return false;
+        }
         tope--;
         return true;
     }
 
-    // Top: cima de la pila
-    Empleado topElemento() const {
+    T top() const {
         if (vacia()) {
-            cout << "La pila está vacía.\n";
-            return Empleado(); // regresa un objeto vacío
+            cout << "La pila esta vacia.\n";
+            return T(); // regresa objeto por defecto
         }
         return datos[tope];
     }
 };
 
-// --------------------- MAIN ---------------------
+// MAIN
 int main() {
-    Pila pila;
+    Pila<Empleado> pila;
     int opcion;
 
     do {
         cout << "\n--- MENU PILA DE EMPLEADOS ---\n";
         cout << "1. Push (apilar empleado)\n";
         cout << "2. Pop (desapilar empleado)\n";
-        cout << "3. Top (consultar cima)\n";
+        cout << "3. Top (mostrar cima)\n";
         cout << "4. Salir\n";
         cout << "Opcion: ";
         cin >> opcion;
@@ -100,39 +105,29 @@ int main() {
         switch (opcion) {
         case 1: {
             if (pila.llena()) {
-                cout << "La pila está llena, no se puede apilar.\n";
+                cout << "La pila esta llena.\n";
             } else {
                 Empleado e;
                 cin.ignore();
                 cin >> e;
                 pila.push(e);
-                cout << "Empleado apilado correctamente.\n";
             }
             break;
         }
-        case 2: {
-            if (pila.vacia()) {
-                cout << "La pila está vacía, no se puede desapilar.\n";
-            } else {
-                pila.pop();
-                cout << "Empleado desapilado correctamente.\n";
-            }
+        case 2:
+            pila.pop();
             break;
-        }
         case 3: {
-            if (pila.vacia()) {
-                cout << "La pila está vacía.\n";
-            } else {
-                cout << "Empleado en la cima:\n";
-                cout << pila.topElemento();
-            }
+            Empleado e = pila.top();
+            if (!pila.vacia())
+                cout << "--- Empleado en la cima ---\n" << e;
             break;
         }
         case 4:
             cout << "Saliendo del programa...\n";
             break;
         default:
-            cout << "Opción inválida.\n";
+            cout << "Opcion invalida.\n";
         }
     } while (opcion != 4);
 
