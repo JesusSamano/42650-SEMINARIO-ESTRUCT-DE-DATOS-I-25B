@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1695915268 source:c:\users\usuario\downloads\colaestatic\main.cpp
+	<iostream>
+	"Cola.h"
+
+1695914967 c:\users\usuario\downloads\colaestatic\include\cola.h
+	<iostream>
+
+1695914967 source:c:\users\usuario\downloads\colaestatic\src\cola.cpp
+	"Cola.h"
+
